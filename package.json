@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "ts-node-dev src/app.ts"
+  },
   "dependencies": {
     "@types/express": "^4.17.21",
     "express": "^4.19.2",
@@ -6,5 +9,7 @@
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.4.5"
   },
-  "type": "module"
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  }
 }
