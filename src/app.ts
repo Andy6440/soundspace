@@ -1,16 +1,15 @@
 import express , {Application} from "express";
-
+import authRoutes from './routes/auth.routes'
 // Create a new express application instance
 const app: Application = express();
-const port : string | number  = process.env.PORT || 3000;
+
+const port : string | number  = process.env.PORT || 8888;
 
 // middleware 
 app.use(express.json()); // for parsing application/json
 
-// Routes
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use('/', authRoutes);
+
 
 // Start the server
 app.listen(port, () => {
