@@ -20,6 +20,7 @@ class AuthService implements IAuth {
       code: code,
       redirect_uri: config.redirect_uri,
     };
+    console.log(params)
     try {
       const response = (await httpService.post(
         "/token",

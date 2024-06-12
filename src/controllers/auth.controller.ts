@@ -1,8 +1,9 @@
-import express, { Request, Response, response } from "express";
+import express, { NextFunction, Request, Response, response } from "express";
 import { generateRandomString } from '../utils/string.utils';
 import { AccessToken } from "../interfaces/user.interface";
 import { authService } from "../services/auth.service";
 import { config } from "../config/config";
+import axios from "axios";
 export class AuthController  {
 
     static async handleLogin(req: Request, res: Response) {
@@ -21,17 +22,23 @@ export class AuthController  {
       res.redirect(authorizationUrl);
     }
 
-     static async handleCallback(req: Request, res: Response) {
+     static async handleCallback(req: Request, res: Response, next: NextFunction) {
       try {
-          let tokens: AccessToken
+          let tokens: AccessToken  
           if (req?.cookies?.tokens) {
-              tokens = req.cookies
+              tokens = req.cookies.tokens as AccessToken
           } else {
 
               const code = req.query.code as string
               //Get access token
               tokens = await authService.getAccessToken(code)
+              const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
+              res.cookie('tokens', tokens, { maxAge: oneDayInMilliseconds });
+
+
           }
+
+          
     
           // //Get user profile
           // const profile: Profile = await getUser(tokens.access_token)
@@ -42,7 +49,7 @@ export class AuthController  {
 
           res.send(tokens)
       } catch (err) {
-         res.status(500).send(err)
+        next(err)
       }
     }
       
