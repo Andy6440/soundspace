@@ -1,7 +1,7 @@
 import express, { Request, Response, response } from "express";
 import { generateRandomString } from '../utils/string.utils';
 import { AccessToken } from "../interfaces/user.interface";
-import { AuthService } from "../services/auth.service";
+import { authService } from "../services/auth.service";
 import { config } from "../config/config";
 export class AuthController  {
 
@@ -29,7 +29,6 @@ export class AuthController  {
           } else {
 
               const code = req.query.code as string
-              const authService = new AuthService()
               //Get access token
               tokens = await authService.getAccessToken(code)
           }
