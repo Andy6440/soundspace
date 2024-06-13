@@ -26,6 +26,7 @@ export class AuthController  {
      static async handleCallback(req: Request, res: Response, next: NextFunction) {
       try {
           let tokens: AccessToken  
+          
           if (req?.cookies?.tokens) {
               tokens = req.cookies.tokens as AccessToken
           } else {

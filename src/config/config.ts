@@ -9,5 +9,4 @@ export const config = {
     client_secret: process.env.CLIENT_SECRET || '',
     base_url: process.env.BASE_URL || "https://accounts.spotify.com/api",
     api_spotify_url: process.env.API_SPOTIFY_URL || "https://api.spotify.com/v1",
-
 };

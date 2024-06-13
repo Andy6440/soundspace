@@ -18,6 +18,7 @@ class UserService {
     try {
       const url = `${config.api_spotify_url}/me`;
       const response: User = await httpService.get(url, access_token);
+
       return  handleUserData(response)
     } catch (error) {
       throw new Error("Error al hacer la solicitud");
