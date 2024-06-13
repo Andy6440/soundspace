@@ -6,7 +6,7 @@ class HttpService {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: config.base_url,
+      // baseURL: config.api_spotify_url,
       timeout: 10000,
       headers: {
         Accept: "application/json",
@@ -14,9 +14,14 @@ class HttpService {
       },
     });
   }
-
-  async get(path: string, params?: object) {
-    const response = await this.axiosInstance.get(path, { params });
+  async get(path: string,access_token:string, params?: object) {
+    
+    const response = await this.axiosInstance.get(path, {
+      params,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });  
     return response.data;
   }
 

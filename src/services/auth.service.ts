@@ -23,7 +23,7 @@ class AuthService implements IAuth {
     console.log(params)
     try {
       const response = (await httpService.post(
-        "/token",
+       `${config.base_url}/token`,
         params
       )) as AccessToken;
 

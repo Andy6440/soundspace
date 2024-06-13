@@ -4,6 +4,7 @@ import { AccessToken } from "../interfaces/user.interface";
 import { authService } from "../services/auth.service";
 import { config } from "../config/config";
 import axios from "axios";
+import { userService } from "../services/user.service";
 export class AuthController  {
 
     static async handleLogin(req: Request, res: Response) {
@@ -37,17 +38,14 @@ export class AuthController  {
 
 
           }
-
-          
-    
-          // //Get user profile
-          // const profile: Profile = await getUser(tokens.access_token)
+          //Get user profile
+          const user = await userService.get(tokens.access_token)
           // //Save user in DB
           // const user = await UserService.handleUser(profile, tokens)
           // //Send user profile
           // res.send(user)
 
-          res.send(tokens)
+          res.send(user)
       } catch (err) {
         next(err)
       }
