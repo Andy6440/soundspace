@@ -2,7 +2,7 @@ import { User } from "../../interfaces/user.interface";
 
 const handleUserData = (user: User): User => {
     return {
-        id: user.id,
+        // id: user.id,
         display_name: user.display_name,
         external_urls: user.external_urls,
         followers: user.followers,

@@ -12,7 +12,6 @@ export interface IAuth {
 }        
 
 export interface User {
-    id: string;
     display_name: string;
     external_urls: {
         spotify: string;
@@ -23,7 +22,7 @@ export interface User {
     };
     href: string;
     
-    images: any[];
+    images: Image[];
     type: string;
     uri: string;
     email: string;
@@ -31,4 +30,10 @@ export interface User {
         filter_enabled: boolean;
         filter_locked: boolean;
     };
+}
+
+interface Image {
+    height?: number;
+    url: string;
+    width?: number;
 }

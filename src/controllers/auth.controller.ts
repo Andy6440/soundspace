@@ -5,7 +5,11 @@ import { authService } from "../services/auth.service";
 import { config } from "../config/config";
 import axios from "axios";
 import { userService } from "../services/user.service";
+import { userDbServices } from "../services/db/user.db.service";
+import { dbService } from "../utils/atlas/mongodb.utils";
 export class AuthController  {
+
+
 
     static async handleLogin(req: Request, res: Response) {
       var state = generateRandomString(16);
@@ -26,7 +30,6 @@ export class AuthController  {
      static async handleCallback(req: Request, res: Response, next: NextFunction) {
       try {
           let tokens: AccessToken  
-          
           if (req?.cookies?.tokens) {
               tokens = req.cookies.tokens as AccessToken
           } else {
@@ -39,10 +42,12 @@ export class AuthController  {
 
 
           }
+
           //Get user profile
-          const user = await userService.get(tokens.access_token)
+          const userData = await userService.get(tokens.access_token)
+          // console.log('user data',userData)
           // //Save user in DB
-          // const user = await UserService.handleUser(profile, tokens)
+          const user = await userDbServices.createUser(userData)
           // //Send user profile
           // res.send(user)
 

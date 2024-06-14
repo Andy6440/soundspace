@@ -1,36 +1,27 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-class DBService {
-  private static instance: DBService; // Private static property to hold the instance
-  private clientOptions: ConnectOptions = { serverApi: { version: "1", strict: true, deprecationErrors: true } };
-  private dbuser: string;
-  private dbpass: string;
-  private dbname: string;
-  private uri: string;
-  constructor() {
-    this.dbuser = process.env.MONGO_USER || "admin"
-    this.dbpass = process.env.MONGO_PASS || "admin"
-    this.dbname = process.env.MONGO_DB || "soundSpace"
-    this.uri = `mongodb+srv://${this.dbuser}:${this.dbpass}@${this.dbname}.cgttsp6.mongodb.net/?retryWrites=true&w=majority&appName=soundSpace`
+dotenv.config();
 
-  }
-  public static getInstance(): DBService {
-    if (!DBService.instance) {
-      DBService.instance = new DBService();
-    }
-    return DBService.instance;
-  }
-  async connection() {
-    try {
-      // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
-      await mongoose.connect(this.uri, this.clientOptions);
-      await mongoose.connection.db.admin().command({ ping: 1 });
-      console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await mongoose.disconnect();
-    }
-  }
+const dbURI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@soundspace.cgttsp6.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 
+const connectDB = async () => {
+  try {
+    await mongoose.connect(dbURI, {
+      ssl: true,
+      tlsAllowInvalidCertificates: false,
+      tlsAllowInvalidHostnames: false,
+    });
+    console.log('MongoDB connected successfully');
+    return true;
+  } catch (error) {
+    console.error('Error connecting to MongoDB', error);
+    return false;
+  }
+};
+
+const ping = async () => {
+  return mongoose.connection.readyState === 1;
 }
-export const dbService = DBService.getInstance();
+ 
+export { connectDB, ping}
