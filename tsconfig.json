@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+      /* Project Options */
+      "target": "ES2022",     // Target a modern JavaScript version (ES2022 or later)
+      "module": "NodeNext",  // Use the new Node.js module system (supports both CommonJS and ESM)
+      "moduleResolution": "NodeNext", // Align module resolution with Node.js's new system
+      "lib": ["ES2022"],    // Include type definitions for ES2022 features
+  
+      /* Source and Output Directories */
+      "rootDir": "./src",   // Root directory for TypeScript source files
+      "outDir": "./dist",   // Output directory for compiled JavaScript files
+  
+      /* Interoperability and Strictness */
+      "esModuleInterop": true,   // Enable interoperability between CommonJS and ES modules
+      "forceConsistentCasingInFileNames": true, // Enforce consistent casing in file names for imports
+      "strict": true,         // Enable all strict type-checking options (highly recommended)
+      "noImplicitAny": true,   // Disallow implicit 'any' types
+      "strictNullChecks": true, // Enforce strict null checks
+  
+      /* Additional Checks */
+      "skipLibCheck": true,    // Skip type checking of declaration files (usually safe)
+  
+      /* Declaration Files and Source Maps */
+      "declaration": true,     // Generate declaration files (.d.ts) for better tooling support
+      "sourceMap": true,      // Generate source maps for debugging
+      
+      /* JSON Modules */
+      "resolveJsonModule": true // Enable importing JSON files
+    },
+    "include": ["src"],       // Include all files in the "src" directory
+    "exclude": ["node_modules"]  // Exclude the "node_modules" directory
+  }
+  
