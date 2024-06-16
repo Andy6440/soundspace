@@ -6,7 +6,6 @@ import { config } from "../config/config";
 import axios from "axios";
 import { userService } from "../services/user.service";
 import { userDbServices } from "../services/db/user.db.service";
-import { dbService } from "../utils/atlas/mongodb.utils";
 export class AuthController  {
 
 
@@ -47,7 +46,7 @@ export class AuthController  {
           const userData = await userService.get(tokens.access_token)
           // console.log('user data',userData)
           // //Save user in DB
-          const user = await userDbServices.createUser(userData)
+          const user = await userDbServices.updateUserData(userData)
           // //Send user profile
           // res.send(user)
 

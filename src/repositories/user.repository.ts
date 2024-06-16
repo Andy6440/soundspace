@@ -12,6 +12,9 @@ export class UserRepository {
   async getUserById(id: string): Promise<User | null> {
     return await UserModel.find({ id: id }) as unknown as User;
   }
+  async updateUserByEmail(userData: User): Promise<User| null > {
+    return await UserModel.findOneAndUpdate({email: userData.email}, userData, { upsert: true,new: true })as unknown  as User;
+  }
 
   async updateUser(id: string, userData: User): Promise<User | null> {
     return await UserModel.findByIdAndUpdate(id, userData, { new: true }) as unknown as User;

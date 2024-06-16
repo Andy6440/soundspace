@@ -30,6 +30,13 @@ import { UserRepository } from "../../repositories/user.repository";
             throw new AppError(error.message, 500);
         }
     }   
+    async updateUserData(userData: User) {
+        try {
+        return await this.userRepository.updateUserByEmail(userData);
+        } catch (error: any) {
+            throw new AppError(error.message, 500);
+        }
+    }
     async updateUser(id: string, user: User) {
         try {
         return await this.userRepository.updateUser(id, user);
