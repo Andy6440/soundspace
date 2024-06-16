@@ -3,15 +3,29 @@ import { config } from "../config/config";
 import { AccessToken, IAuth } from "../interfaces/user.interface";
 import { httpService } from "./http.service";
 
+/**
+ * Represents the authentication service.
+ */
 class AuthService implements IAuth {
   private static instance: AuthService; // Private static property to hold the instance
 
+  /**
+   * Returns the singleton instance of the AuthService class.
+   * @returns The singleton instance of the AuthService class.
+   */
   public static getInstance(): AuthService {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService();
     }
     return AuthService.instance;
   }
+
+  /**
+   * Retrieves an access token using the provided authorization code.
+   * @param code - The authorization code.
+   * @returns A promise that resolves to the access token.
+   * @throws An error if there was an issue making the request.
+   */
   public async getAccessToken(code: string): Promise<AccessToken> {
     const params = {
       client_id: config.client_id,
@@ -20,10 +34,10 @@ class AuthService implements IAuth {
       code: code,
       redirect_uri: config.redirect_uri,
     };
-    console.log(params)
+    console.log(params);
     try {
       const response = (await httpService.post(
-       `${config.base_url}/token`,
+        `${config.base_url}/token`,
         params
       )) as AccessToken;
 

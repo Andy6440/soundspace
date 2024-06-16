@@ -3,13 +3,21 @@ import { generateRandomString } from '../utils/string.utils';
 import { AccessToken } from "../interfaces/user.interface";
 import { authService } from "../services/auth.service";
 import { config } from "../config/config";
-import axios from "axios";
 import { userService } from "../services/user.service";
 import { userDbServices } from "../services/db/user.db.service";
+/**
+ * Controller class for handling authentication-related operations.
+ */
 export class AuthController  {
 
 
 
+    /**
+     * Handles the login process.
+     * Generates a random state, constructs the authorization URL, and redirects the user to it.
+     * @param req - The request object.
+     * @param res - The response object.
+     */
     static async handleLogin(req: Request, res: Response) {
       var state = generateRandomString(16);
       var scope = 'user-read-private user-read-email';
@@ -26,6 +34,15 @@ export class AuthController  {
       res.redirect(authorizationUrl);
     }
 
+    /**
+     * Handles the callback from the authentication provider.
+     * Retrieves the access token and user profile, and updates the user data in the database.
+     * If the access token is already present in the cookies, it uses the existing token.
+     * Otherwise, it retrieves the access token using the authorization code and stores it in the cookies.
+     * @param req - The request object.
+     * @param res - The response object.
+     * @param next - The next function to call.
+     */
      static async handleCallback(req: Request, res: Response, next: NextFunction) {
       try {
           let tokens: AccessToken  
@@ -44,12 +61,9 @@ export class AuthController  {
 
           //Get user profile
           const userData = await userService.get(tokens.access_token)
-          // console.log('user data',userData)
-          // //Save user in DB
-          const user = await userDbServices.updateUserData(userData)
-          // //Send user profile
-          // res.send(user)
 
+          //Save user in DB
+          const user = await userDbServices.updateUserData(userData)
           res.send(user)
       } catch (err) {
         next(err)

@@ -3,6 +3,9 @@ import { User } from "../interfaces/user.interface";
 
 interface IUserDocument extends Document,User {}
 
+/**
+ * Represents the schema for the User model.
+ */
 const UserSchema = new Schema<IUserDocument>({
     display_name: { type: String, required: true },
     external_urls: { type: Object, required: true },

@@ -1,5 +1,10 @@
 import { User } from "../../interfaces/user.interface";
 
+/**
+ * Transforms user data by selecting specific properties.
+ * @param user - The user object to be transformed.
+ * @returns The transformed user object.
+ */
 const handleUserData = (user: User): User => {
     return {
         // id: user.id,

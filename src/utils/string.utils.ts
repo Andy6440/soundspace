@@ -1,13 +1,13 @@
 import express from "express";
 import { randomBytes } from 'crypto'; // Para Node.js
 
+
 /**
- * Genera una cadena aleatoria de la longitud especificada, utilizando caracteres alfanuméricos.
- * Si se requiere seguridad criptográfica, utiliza bytes aleatorios seguros.
- *
- * @param {number} length - La longitud deseada de la cadena aleatoria.
- * @param {string} [charSet] - (Opcional) El conjunto de caracteres a utilizar. Por defecto, incluye letras mayúsculas y minúsculas, y números.
- * @returns {string} La cadena aleatoria generada.
+ * Generates a random string of the specified length using the provided character set.
+ * @param length The length of the random string to generate.
+ * @param charSet The character set to use for generating the random string. Defaults to 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.
+ * @returns The randomly generated string.
+ * @throws Throws an error if the length is not a positive number.
  */
  const generateRandomString = (length : number, charSet: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'): string => {
   // Validación de entrada

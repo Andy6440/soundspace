@@ -5,6 +5,13 @@ import axios, { AxiosError } from 'axios';
 import { AppError } from '../errors/app.error';
 import { BadRequestError } from '../errors/badRequest.error';
 
+/**
+ * Express middleware for handling errors.
+ * @param err - The error object.
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @param next - The next middleware function.
+ */
 const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
 
   let error: AppError = err as AppError; // Cast to AppError for better type handling
