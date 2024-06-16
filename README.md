@@ -45,7 +45,7 @@ SoundScape is a RESTful API that empowers you to create personalized playlists b
 4. **Run the server:** `npm run dev`
 ## Usage (Main Endpoints)
 
-* **`POST /login`:** Log in with an existing user.
+* **`GET /login`:** Log in with an existing user.
 
 ## Contributing
 
