@@ -22,4 +22,6 @@ authRoutes.get("/login", AuthController.handleLogin);
  */
 authRoutes.get("/callback", AuthController.handleCallback);
 
+authRoutes.get("/refresh_token", AuthController.handleRefreshToken);
+
 export default authRoutes;

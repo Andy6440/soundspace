@@ -34,7 +34,6 @@ class AuthService implements IAuth {
       code: code,
       redirect_uri: config.redirect_uri,
     };
-    console.log(params);
     try {
       const response = (await httpService.post(
         `${config.base_url}/token`,
@@ -43,6 +42,34 @@ class AuthService implements IAuth {
 
       return response;
     } catch (error) {
+      throw new Error("Error al hacer la solicitud");
+    }
+  }
+
+  /**
+   * Refreshes the access token using the refresh token.
+   * @param refreshToken - The refresh token to use for refreshing the access token.
+   * @returns A Promise that resolves to the new access token and refresh token.
+   */
+  public async refreshToken(refreshToken: string): Promise<AccessToken> {
+  
+    try{
+      const url =  `${config.base_url}/token`;
+
+      const data = new URLSearchParams();
+      data.append("grant_type", "refresh_token");
+      data.append("refresh_token", refreshToken);
+  
+      const authHeader = `Basic ${Buffer.from(
+        `${config.client_id}:${config.client_secret}`
+      ).toString("base64")}`;
+  
+      const response = await httpService.post(url, data, {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: authHeader,
+      }) as AccessToken;
+      return response;
+    }catch(error){
       throw new Error("Error al hacer la solicitud");
     }
   }

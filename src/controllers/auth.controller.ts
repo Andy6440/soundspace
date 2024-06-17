@@ -30,7 +30,6 @@ export class AuthController  {
       });
     
       const authorizationUrl = `https://accounts.spotify.com/authorize?${params.toString()}`;
-      console.log('authorization url',authorizationUrl);
       res.redirect(authorizationUrl);
     }
 
@@ -53,11 +52,13 @@ export class AuthController  {
               const code = req.query.code as string
               //Get access token
               tokens = await authService.getAccessToken(code)
+              
               const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
               res.cookie('tokens', tokens, { maxAge: oneDayInMilliseconds });
 
 
           }
+          console.log('tokens',tokens)
 
           //Get user profile
           const userData = await userService.get(tokens.access_token)
@@ -68,6 +69,23 @@ export class AuthController  {
       } catch (err) {
         next(err)
       }
+    }
+
+    static async handleRefreshToken(req: Request, res: Response, next: NextFunction) {
+      try {
+          let refreshToken: string
+          if (req?.query?.refresh_token) {
+            refreshToken = req.query.refresh_token as string            
+            let tokens = await authService.refreshToken(refreshToken) 
+            res.send(tokens)
+          } else {
+              throw new Error('No token found')
+          }
+
+      } catch (err) {
+        next(err)
+      }
+
     }
       
 
