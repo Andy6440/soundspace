@@ -73,6 +73,36 @@ class AuthService implements IAuth {
       throw new Error("Error al hacer la solicitud");
     }
   }
+
+  /**
+   * Retrieves an access token using the client credentials.
+   * @param client_id - The client ID.
+   * @param client_secret - The client secret.
+   * @returns A promise that resolves to the access token.
+   * @throws An error if there was an issue making the request.
+   */
+  public async getAccessTokenWithClientCredentials(
+    client_id: string,
+    client_secret: string
+  ): Promise<AccessToken> {
+    
+    const authHeader = `Basic ${Buffer.from(
+      `${client_id}:${client_secret}`
+    ).toString("base64")}`;
+    try {
+      const data = new URLSearchParams();
+      data.append("grant_type", "client_credentials");
+      const url = `${config.base_url}/token`;
+
+      const response = await httpService.post(url, data, {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: authHeader,
+      }) as AccessToken;
+      return response;
+    } catch (error) {
+      throw new Error("Error al hacer la solicitud");
+    }
+  }
 }
 
 export const authService = AuthService.getInstance();
