@@ -16,7 +16,8 @@ const handleUserData = (user: User): User => {
         type: user.type,
         uri: user.uri,
         email: user.email,
-        explicit_content: user.explicit_content,        
+        explicit_content: user.explicit_content,
+        access_token: user.access_token ,        
     };
 }
 

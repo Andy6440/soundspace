@@ -3,6 +3,8 @@ import authRoutes from './routes/auth.routes'
 import errorHandler from "./middlewares/error.middleware";
 import cookieParser from 'cookie-parser';
 import {connectDB,ping} from "./utils/atlas/mongodb.utils";
+import { swaggerDocs, swaggerSetup } from "./config/swagger";
+import userRoutes from "./routes/user.routes";
 const app: Application = express();
 const port : string | number  = process.env.PORT || 8888;
 
@@ -17,8 +19,10 @@ connectDB().then(() => {
     try {
       
       app.use('/', authRoutes);
+      app.use('/users', userRoutes);
       app.use(errorHandler);
       
+      app.use('/api-docs', swaggerDocs,swaggerSetup)
       // Start the server
       app.listen(port, () => {
         console.log(`Server started on http://localhost:${port}`);

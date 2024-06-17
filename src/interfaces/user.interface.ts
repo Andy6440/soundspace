@@ -30,6 +30,8 @@ export interface User {
         filter_enabled: boolean;
         filter_locked: boolean;
     };
+    access_token: AccessToken;
+
 }
 
 interface Image {

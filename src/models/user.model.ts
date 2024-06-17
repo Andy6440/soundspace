@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-import { User } from "../interfaces/user.interface";
+import { AccessToken, User } from "../interfaces/user.interface";
 
 interface IUserDocument extends Document,User {}
 
@@ -16,6 +16,7 @@ const UserSchema = new Schema<IUserDocument>({
     uri: { type: String, required: true },
     email: { type: String, required: true },
     explicit_content: { type: Object, required: true },
+    access_token: { type: Object, required: true },
 });
 
 const UserModel = model<IUserDocument>('User', UserSchema);

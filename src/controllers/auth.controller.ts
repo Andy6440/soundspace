@@ -1,10 +1,12 @@
-import express, { NextFunction, Request, Response, response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { generateRandomString } from "../utils/string.utils";
 import { AccessToken } from "../interfaces/user.interface";
+import { apiResponse } from "../interfaces/apiResponse.interface";
 import { authService } from "../services/auth.service";
 import { config } from "../config/config";
 import { userService } from "../services/user.service";
 import { userDbServices } from "../services/db/user.db.service";
+import { jwtInstance } from "../utils/jwt.util";
 /**
  * Controller class for handling authentication-related operations.
  */
@@ -68,15 +70,31 @@ export class AuthController {
         //Get access token
         tokens = await authService.getAccessToken(code);
 
+       
         const oneDayInMilliseconds = 24 * 60 * 60 * 1000; // 24 hours * 60 minutes/hour * 60 seconds/minute * 1000 milliseconds/second
         res.cookie("tokens", tokens, { maxAge: oneDayInMilliseconds });
       }
 
       //Get user profile
       const userData = await userService.get(tokens.access_token);
-
+      userData.access_token = tokens;
       //Save user in DB
       const user = await userDbServices.updateUserData(userData);
+      if(user){
+        const token = jwtInstance.generateToken({email: userData.email});
+        const response = {
+          message: "User Logged in",
+          status: 200,
+          data: {
+            token: token
+          }
+        } as  apiResponse
+      
+        res.send(response);
+      }else{
+        throw new Error("Error al Iniciar sesion");
+      }
+
       res.send(user);
     } catch (err) {
       next(err);
