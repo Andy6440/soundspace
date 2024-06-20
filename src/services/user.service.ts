@@ -1,6 +1,8 @@
 import { config } from "../config/config";
-import { User } from "../interfaces/user.interface";
-import { handleUserData } from "../utils/transformers/user.transformer";
+import { User, UserTop } from "../interfaces/user.interface";
+import { Artist } from "../interfaces/artist.interface";
+import { userHelper } from "../utils/helpers/user.helper";
+import { handleUserData, handleUserTop } from "../utils/transformers/user.transformer";
 
 import { httpService } from "./http.service";
 
@@ -36,6 +38,25 @@ class UserService {
     } catch (error) {
       throw new Error("Error al hacer la solicitud");
     }
+  }
+  public async getTopByType(access_token: string, type: string, time_range?: string, limit?: number, offset?: number) {
+    try{
+
+      let params =new URLSearchParams({
+        offset: offset ? offset.toString() : "0",
+        limit: limit ? limit.toString() : "20",
+        time_range: time_range ? time_range : "medium_term",
+      });
+      const url = `https://api.spotify.com/v1/me/top/${type}?${params.toString()}`;
+      // const url = `${config.api_spotify_url}/me`;
+          const response :UserTop  = await httpService.get(url, access_token) ;
+          const result = handleUserTop(response)
+          return result
+    }catch (error) {
+      // console.log('error',error)
+      throw new Error("Error al hacer la solicitud");
+    }
+   return 'hola'
   }
 }
 

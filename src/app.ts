@@ -5,12 +5,23 @@ import cookieParser from 'cookie-parser';
 import {connectDB,ping} from "./utils/atlas/mongodb.utils";
 import { swaggerDocs, swaggerSetup } from "./config/swagger";
 import userRoutes from "./routes/user.routes";
+import authHandler from "./middlewares/auth.middleware";
+import helmet from "helmet";
+import session from "express-session";
 const app: Application = express();
 const port : string | number  = process.env.PORT || 8888;
 
 app.use(express.json()); // for parsing application/json
 app.use(cookieParser());
-
+app.use(helmet());
+app.disable('x-powered-by')
+// Configurar el middleware de sesión
+app.use(session({
+  secret:crypto.randomUUID(), // Reemplaza con una clave secreta segura
+  resave: false,
+  saveUninitialized: false, // Importante: inicializar en false
+  cookie: { secure: false } // Cambia a true si usas HTTPS
+}));
 // Conectar a la base de datos
 connectDB().then(() => {
 
@@ -19,6 +30,7 @@ connectDB().then(() => {
     try {
       
       app.use('/', authRoutes);
+      app.use(authHandler);
       app.use('/users', userRoutes);
       app.use(errorHandler);
       

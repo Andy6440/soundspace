@@ -3,7 +3,7 @@ import { generateRandomString } from "../utils/string.utils";
 import { AccessToken } from "../interfaces/user.interface";
 import { apiResponse } from "../interfaces/apiResponse.interface";
 import { authService } from "../services/auth.service";
-import { config } from "../config/config";
+import { config,spotifyScopes } from "../config/config";
 import { userService } from "../services/user.service";
 import { userDbServices } from "../services/db/user.db.service";
 import { jwtInstance } from "../utils/jwt.util";
@@ -14,16 +14,15 @@ export class AuthController {
   /**
    * Handles the login process.
    * Generates a random state, constructs the authorization URL, and redirects the user to it.
-   * @param req - The request object.
+   * @param _req - The request object.
    * @param res - The response object.
    */
-  static async handleLogin(req: Request, res: Response) {
+  static async handleLogin(_req: Request, res: Response) {
     var state = generateRandomString(16);
-    var scope = "user-read-private user-read-email";
     const params = new URLSearchParams({
       response_type: "code",
       client_id: config.client_id,
-      scope: scope,
+      scope: spotifyScopes.login,
       redirect_uri: config.redirect_uri,
       state: state,
     });

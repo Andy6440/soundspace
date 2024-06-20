@@ -10,3 +10,7 @@ export const config = {
     base_url: process.env.BASE_URL || "https://accounts.spotify.com/api",
     api_spotify_url: process.env.API_SPOTIFY_URL || "https://api.spotify.com/v1",
 };
+
+export const spotifyScopes = {
+    login : "user-read-private user-read-email user-top-read",
+}

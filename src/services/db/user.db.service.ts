@@ -54,6 +54,13 @@ class userDbService {
             throw new AppError(error.message, 500);
         }
     }
+    async getUserByEmail(email: string) {
+        try {
+            return await this.userRepository.getUserByQuery('email',email);
+        } catch (error: any) {
+            throw new AppError(error.message, 500);
+        }
+    }
 
     /**
      * Updates user data in the database.

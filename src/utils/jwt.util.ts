@@ -20,8 +20,8 @@ class JWTClass {
     return jwt.sign(payload, JWTClass.pass, options); // Accede a la variable estática usando JWTClass.pass
   }
 
-  verifyToken(token: string, secret: string): any {
-    return jwt.verify(token, secret);
+  verifyToken(token: string): any {
+    return jwt.verify(token, JWTClass.pass);
   }
 }
 
