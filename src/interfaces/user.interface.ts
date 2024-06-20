@@ -35,7 +35,7 @@ export interface User {
         filter_locked: boolean;
     };
     access_token: AccessToken;
-
+    api_token: string;
 }
 export interface UserTop {
     items: Artist[] | Track[];

@@ -36,6 +36,7 @@ class UserService {
 
       return handleUserData(response);
     } catch (error) {
+      
       throw new Error("Error al hacer la solicitud");
     }
   }

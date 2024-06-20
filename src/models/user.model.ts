@@ -17,6 +17,7 @@ const UserSchema = new Schema<IUserDocument>({
     email: { type: String, required: true },
     explicit_content: { type: Object, required: true },
     access_token: { type: Object, required: true },
+    api_token: { type: String, required: true },
 });
 
 const UserModel = model<IUserDocument>('User', UserSchema);

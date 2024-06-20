@@ -77,15 +77,16 @@ export class AuthController {
       //Get user profile
       const userData = await userService.get(tokens.access_token);
       userData.access_token = tokens;
+      userData.api_token = jwtInstance.generateToken({email: userData.email});
+
       //Save user in DB
       const user = await userDbServices.updateUserData(userData);
       if(user){
-        const token = jwtInstance.generateToken({email: userData.email});
         const response = {
           message: "User Logged in",
           status: 200,
           data: {
-            token: token
+            token: userData.api_token
           }
         } as  apiResponse
       
