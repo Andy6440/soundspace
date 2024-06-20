@@ -1,7 +1,6 @@
-import { response } from "express";
-import { config } from "../config/config";
-import { AccessToken, IAuth } from "../interfaces/user.interface";
-import { httpService } from "./http.service";
+import { config } from '../config/config';
+import { AccessToken, IAuth } from '../interfaces/user.interface';
+import { httpService } from './http.service';
 
 /**
  * Represents the authentication service.
@@ -30,19 +29,19 @@ class AuthService implements IAuth {
     const params = {
       client_id: config.client_id,
       client_secret: config.client_secret,
-      grant_type: "authorization_code",
+      grant_type: 'authorization_code',
       code: code,
       redirect_uri: config.redirect_uri,
     };
     try {
       const response = (await httpService.post(
         `${config.base_url}/token`,
-        params
+        params,
       )) as AccessToken;
 
       return response;
     } catch (error) {
-      throw new Error("Error al hacer la solicitud");
+      throw new Error('Error al hacer la solicitud');
     }
   }
 
@@ -52,25 +51,24 @@ class AuthService implements IAuth {
    * @returns A Promise that resolves to the new access token and refresh token.
    */
   public async refreshToken(refreshToken: string): Promise<AccessToken> {
-  
-    try{
-      const url =  `${config.base_url}/token`;
+    try {
+      const url = `${config.base_url}/token`;
 
       const data = new URLSearchParams();
-      data.append("grant_type", "refresh_token");
-      data.append("refresh_token", refreshToken);
-  
+      data.append('grant_type', 'refresh_token');
+      data.append('refresh_token', refreshToken);
+
       const authHeader = `Basic ${Buffer.from(
-        `${config.client_id}:${config.client_secret}`
-      ).toString("base64")}`;
-  
-      const response = await httpService.post(url, data, {
-        "Content-Type": "application/x-www-form-urlencoded",
+        `${config.client_id}:${config.client_secret}`,
+      ).toString('base64')}`;
+
+      const response = (await httpService.post(url, data, {
+        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: authHeader,
-      }) as AccessToken;
+      })) as AccessToken;
       return response;
-    }catch(error){
-      throw new Error("Error al hacer la solicitud");
+    } catch (error) {
+      throw new Error('Error al hacer la solicitud');
     }
   }
 
@@ -83,24 +81,23 @@ class AuthService implements IAuth {
    */
   public async getAccessTokenWithClientCredentials(
     client_id: string,
-    client_secret: string
+    client_secret: string,
   ): Promise<AccessToken> {
-    
     const authHeader = `Basic ${Buffer.from(
-      `${client_id}:${client_secret}`
-    ).toString("base64")}`;
+      `${client_id}:${client_secret}`,
+    ).toString('base64')}`;
     try {
       const data = new URLSearchParams();
-      data.append("grant_type", "client_credentials");
+      data.append('grant_type', 'client_credentials');
       const url = `${config.base_url}/token`;
 
-      const response = await httpService.post(url, data, {
-        "Content-Type": "application/x-www-form-urlencoded",
+      const response = (await httpService.post(url, data, {
+        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: authHeader,
-      }) as AccessToken;
+      })) as AccessToken;
       return response;
     } catch (error) {
-      throw new Error("Error al hacer la solicitud");
+      throw new Error('Error al hacer la solicitud');
     }
   }
 }

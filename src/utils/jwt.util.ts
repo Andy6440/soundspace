@@ -4,14 +4,12 @@ class JWTClass {
   private static instance: JWTClass;
   private static pass: string;
 
-  private constructor() {
-   
-  }
+  private constructor() {}
 
   static getInstance(): JWTClass {
     if (!JWTClass.instance) {
       JWTClass.instance = new JWTClass();
-      this.pass = process.env.JWT_PASS || ''; 
+      this.pass = process.env.JWT_PASS || '';
     }
     return JWTClass.instance;
   }
@@ -25,4 +23,4 @@ class JWTClass {
   }
 }
 
-export  const jwtInstance = JWTClass.getInstance();
+export const jwtInstance = JWTClass.getInstance();

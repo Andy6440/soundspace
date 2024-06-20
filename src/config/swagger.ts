@@ -7,7 +7,8 @@ const options: swaggerJSDoc.Options = {
     info: {
       title: 'Tu API',
       version: '1.0.0',
-      description: 'SoundScape is a RESTful API that empowers you to create personalized playlists based on your mood and music preferences.',
+      description:
+        'SoundScape is a RESTful API that empowers you to create personalized playlists based on your mood and music preferences.',
     },
   },
   apis: ['./src/routes/*.ts'], // Rutas de tus archivos de rutas

@@ -26,6 +26,6 @@ const connectDB = async () => {
 
 const ping = async () => {
   return mongoose.connection.readyState === 1;
-}
- 
-export { connectDB, ping}
+};
+
+export { connectDB, ping };

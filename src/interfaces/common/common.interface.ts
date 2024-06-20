@@ -1,15 +1,14 @@
 export interface ExternalUrl {
-   
-    spotify: string;
+  spotify: string;
 }
 
 export interface Followers {
-    href?: any;
-    total: number;
+  href?: any;
+  total: number;
 }
- 
+
 export interface Image {
-    height?: number;
-    url: string;
-    width?: number;
+  height?: number;
+  url: string;
+  width?: number;
 }
