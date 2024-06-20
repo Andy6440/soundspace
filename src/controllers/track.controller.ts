@@ -7,12 +7,10 @@ export class TrackController {
   static async get(req: Request, res: Response) {
     const auth = (req.session as ISession).token;
     if (auth?.access_token) {
-      const token = auth.access_token as string;
       try {
-        const data = await trackService.getById(
-          token,
-          '11dFghVXANMlKmJXsNCbNl',
-        );
+        const token = auth.access_token as string;
+        const id = req.query.id as string;
+        const data = await trackService.getById(token, id);
         res.send(data);
       } catch (error) {
         throw new Error('Error al obtener los datos del usuario');
@@ -20,5 +18,9 @@ export class TrackController {
     } else {
       throw new Error('No se encontro el token de acceso');
     }
+  }
+
+  static async getSeveralTracks(req: Request, res: Response) {
+    res.send('getSeveralTracks');
   }
 }

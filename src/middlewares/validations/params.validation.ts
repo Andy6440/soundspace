@@ -4,7 +4,7 @@ const validateParams = (params: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     for (const param of params) {
       if (!req.query[param] || typeof req.query[param] !== 'string') {
-        throw new Error(`Missing query parameter: ${param}`);
+        throw new Error(`Invalid  query string parameter : ${param}`);
       }
     }
     next();
