@@ -1,5 +1,5 @@
-import express from "express";
-import { AuthController } from "../controllers/auth.controller";
+import express from 'express';
+import { AuthController } from '../controllers/auth.controller';
 
 /**
  * Express router for handling authentication routes.
@@ -25,7 +25,7 @@ const authRoutes = express.Router();
  *               type: string
  *             description: The Spotify authorization URL.
  */
-authRoutes.get("/login", AuthController.handleLogin);
+authRoutes.get('/login', AuthController.handleLogin);
 
 /**
  * @openapi
@@ -54,7 +54,7 @@ authRoutes.get("/login", AuthController.handleLogin);
  *       500:
  *         description: Internal server error during authentication process.
  */
-authRoutes.get("/callback", AuthController.handleCallback);
+authRoutes.get('/callback', AuthController.handleCallback);
 
 /**
  * @openapi
@@ -82,7 +82,7 @@ authRoutes.get("/callback", AuthController.handleCallback);
  *       401:
  *         description: Unauthorized. Refresh token has expired or is invalid.
  */
-authRoutes.get("/refresh_token", AuthController.handleRefreshToken);
+authRoutes.get('/refresh_token', AuthController.handleRefreshToken);
 
 /**
  * @openapi
@@ -102,8 +102,8 @@ authRoutes.get("/refresh_token", AuthController.handleRefreshToken);
  *         description: Internal server error during token generation.
  */
 authRoutes.get(
-  "/login/client_credential",
-  AuthController.handleLoginWithClientCredentials
+  '/login/client_credential',
+  AuthController.handleLoginWithClientCredentials,
 );
 
 export default authRoutes;

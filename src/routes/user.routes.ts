@@ -1,8 +1,8 @@
-import express from "express";
-import { UserController } from "../controllers/user.controller";
-import validateParams from "../middlewares/validations/params.validation";
-import validateOptionalParamsString from "../middlewares/validations/params.string.notRequired.validation";
-import validateOptionalParamsNumber from "../middlewares/validations/params.integer.notRequired.validation";
+import express from 'express';
+import { UserController } from '../controllers/user.controller';
+import validateParams from '../middlewares/validations/params.validation';
+import validateOptionalParamsString from '../middlewares/validations/params.string.notRequired.validation';
+import validateOptionalParamsNumber from '../middlewares/validations/params.integer.notRequired.validation';
 
 const userRoutes = express.Router();
 
@@ -57,7 +57,7 @@ const userRoutes = express.Router();
  *                   type: string
  *                   description: A description of the server error.
  */
-userRoutes.get("/profile", UserController.getProfile);
+userRoutes.get('/profile', UserController.getProfile);
 /**
  * @openapi
  * /users/me/top:
@@ -122,11 +122,11 @@ userRoutes.get("/profile", UserController.getProfile);
  *                   type: string
  */
 userRoutes.get(
-  "/me/top",
-  validateParams(["type"]),
-  validateOptionalParamsString(["time_range"]),
-  validateOptionalParamsNumber(["limit", "offset"]),
-  UserController.getTopByType
+  '/me/top',
+  validateParams(['type']),
+  validateOptionalParamsString(['time_range']),
+  validateOptionalParamsNumber(['limit', 'offset']),
+  UserController.getTopByType,
 );
 
 export default userRoutes;

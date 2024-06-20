@@ -1,5 +1,4 @@
-import axios from "axios";
-import { config } from "../config/config";
+import axios from 'axios';
 
 /**
  * Service for making HTTP requests using Axios.
@@ -12,8 +11,8 @@ class HttpService {
       // baseURL: config.api_spotify_url,
       timeout: 10000,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
   }
@@ -42,7 +41,11 @@ class HttpService {
    * @param additionalHeaders - Optional additional headers to include in the request.
    * @returns A Promise that resolves to the response data.
    */
-  public async post(path: string, data?: object, additionalHeaders?: Record<string, string>) {
+  public async post(
+    path: string,
+    data?: object,
+    additionalHeaders?: Record<string, string>,
+  ) {
     const config = {
       headers: {
         ...additionalHeaders,
