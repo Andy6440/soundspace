@@ -29,7 +29,6 @@ export class UserRepository {
     // Crea un objeto de consulta dinámica
   let query: { [key: string]: string } = {};
   query[item] = value;
-  console.log('get user by query',query)
     return await UserModel.findOne(query) as unknown as User;
   }
   /**

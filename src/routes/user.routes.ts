@@ -1,5 +1,7 @@
 import express from "express";
 import { UserController } from "../controllers/user.controller";
+import validateParams from "../middlewares/validations/params.validation";
+import validateOptionalParams from "../middlewares/validations/optionalParams.validation";
 
 const userRoutes = express.Router();
 
@@ -22,6 +24,6 @@ const userRoutes = express.Router();
  *               type: string
  *             description: The Spotify authorization URL.
  */
-userRoutes.get("/me/top", UserController.getTopByType);
+userRoutes.get("/me/top",validateParams(['type']) ,validateOptionalParams(['time_range','limit','offset']), UserController.getTopByType);
 
 export default userRoutes;

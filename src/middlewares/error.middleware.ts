@@ -22,8 +22,8 @@ const errorHandler = (err: Error, req: Request, res: Response, next: NextFunctio
     error = new BadRequestError('Spotify API request failed','nada');
   } else if (!(err instanceof AppError)) {
     // For non-AppError errors, log the error and create a generic 500 error
-    console.error('Unexpected error:', err);
-    error = new AppError('Internal Server Error', 500);
+    console.error('Unexpected error:', err.message);
+    error = new AppError(err.message, 500);
   }
 
   res.status(error.statusCode || 500).json({

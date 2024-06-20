@@ -5,4 +5,3 @@ export interface ISession extends Session {
   email?: string;
   token?: AccessToken;
 }
-console.log('SessionData extended');

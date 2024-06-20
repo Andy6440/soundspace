@@ -14,12 +14,3 @@ export  interface Artist {
 }
 
   
-//   function matchesModel(data: any, model: any): boolean {
-//     return Object.keys(model).every(key =>
-//       typeof model[key] === 'object' ? matchesModel(data[key], model[key]) : typeof data[key] === typeof model[key]
-//     );
-//   }
-  
-//   // Uso:
-//   const data = { /* tus datos aquí */ };
-//   console.log(matchesModel(data, artistModel)); // Devuelve true si data cumple con el modelo, false en caso contrario

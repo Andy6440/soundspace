@@ -36,7 +36,6 @@ class userDbService {
         try {
             return await this.userRepository.create(user);
         } catch (error: any) {
-            console.log(error);
             throw new AppError(error.message, 500);
         }
     }

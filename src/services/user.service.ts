@@ -39,21 +39,19 @@ class UserService {
       throw new Error("Error al hacer la solicitud");
     }
   }
-  public async getTopByType(access_token: string, type: string, time_range?: string, limit?: number, offset?: number) {
+  public async getTopByType(access_token: string, type: string, time_range?: string, limit?: string, offset?: string) {
     try{
 
       let params =new URLSearchParams({
-        offset: offset ? offset.toString() : "0",
-        limit: limit ? limit.toString() : "20",
-        time_range: time_range ? time_range : "medium_term",
+        offset: offset && offset!=='' ? offset.toString() : "0",
+        limit: limit  && limit!=='' ? limit.toString() : "20",
+        time_range: time_range  && time_range!=='' ? time_range : "medium_term",
       });
-      const url = `https://api.spotify.com/v1/me/top/${type}?${params.toString()}`;
-      // const url = `${config.api_spotify_url}/me`;
+      const url = `${config.api_spotify_url}/me/top/${type}?${params.toString()}`;
           const response :UserTop  = await httpService.get(url, access_token) ;
           const result = handleUserTop(response)
           return result
     }catch (error) {
-      // console.log('error',error)
       throw new Error("Error al hacer la solicitud");
     }
    return 'hola'
