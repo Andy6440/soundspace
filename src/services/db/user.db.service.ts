@@ -36,7 +36,6 @@ class userDbService {
         try {
             return await this.userRepository.create(user);
         } catch (error: any) {
-            console.log(error);
             throw new AppError(error.message, 500);
         }
     }
@@ -50,6 +49,13 @@ class userDbService {
     async getUserById(id: string) {
         try {
             return await this.userRepository.getUserById(id);
+        } catch (error: any) {
+            throw new AppError(error.message, 500);
+        }
+    }
+    async getUserByEmail(email: string) {
+        try {
+            return await this.userRepository.getUserByQuery('email',email);
         } catch (error: any) {
             throw new AppError(error.message, 500);
         }

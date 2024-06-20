@@ -1,3 +1,7 @@
+import { Artist } from "./artist.interface";
+import { Image } from "./common/common.interface";
+import { Track } from "./track.interface";
+
 export interface AccessToken {
    
     access_token: string;
@@ -30,10 +34,10 @@ export interface User {
         filter_enabled: boolean;
         filter_locked: boolean;
     };
+    access_token: AccessToken;
+    api_token: string;
+}
+export interface UserTop {
+    items: Artist[] | Track[];
 }
 
-interface Image {
-    height?: number;
-    url: string;
-    width?: number;
-}

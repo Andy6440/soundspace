@@ -25,7 +25,12 @@ export class UserRepository {
   async getUserById(id: string): Promise<User | null> {
     return await UserModel.find({ id: id }) as unknown as User;
   }
-
+  async getUserByQuery(item: string ,value :string): Promise<User | null> {
+    // Crea un objeto de consulta dinámica
+  let query: { [key: string]: string } = {};
+  query[item] = value;
+    return await UserModel.findOne(query) as unknown as User;
+  }
   /**
    * Updates a user by their email.
    * @param userData - The updated data of the user.
