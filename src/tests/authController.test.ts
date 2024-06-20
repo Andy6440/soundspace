@@ -15,6 +15,7 @@ jest.mock('../src/config/config', () => ({
 describe('AuthController', () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let next: jest.Mock;
 
   beforeEach(() => {

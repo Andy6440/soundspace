@@ -8,6 +8,7 @@ import userRoutes from './routes/user.routes';
 import authHandler from './middlewares/auth.middleware';
 import helmet from 'helmet';
 import session from 'express-session';
+import trackRoutes from './routes/track.routes';
 const app: Application = express();
 const port: string | number = process.env.PORT || 8888;
 
@@ -30,12 +31,13 @@ connectDB()
     // Iniciar el servidor solo después de que la conexión a la base de datos esté establecida
     const startServer = () => {
       try {
+        app.use('/api-docs', swaggerDocs, swaggerSetup);
         app.use('/', authRoutes);
         app.use(authHandler);
         app.use('/users', userRoutes);
+        app.use('/track', trackRoutes);
         app.use(errorHandler);
 
-        app.use('/api-docs', swaggerDocs, swaggerSetup);
         // Start the server
         app.listen(port, () => {
           console.log(`Server started on http://localhost:${port}`);
