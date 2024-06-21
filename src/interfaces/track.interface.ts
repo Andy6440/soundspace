@@ -40,3 +40,13 @@ export interface Track {
   type: string;
   uri: string;
 }
+
+export interface userSavedTracks {
+  href: string;
+  items: Track[];
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string;
+  total: number;
+}

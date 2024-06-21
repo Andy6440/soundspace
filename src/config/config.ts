@@ -11,5 +11,6 @@ export const config = {
 };
 
 export const spotifyScopes = {
-  login: 'user-read-private user-read-email user-top-read user-follow-read',
+  login:
+    'user-read-private user-read-email user-top-read user-follow-read user-library-read',
 };

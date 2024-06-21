@@ -1,8 +1,8 @@
 import express from 'express';
 import { UserController } from '../controllers/user.controller';
-import validateParams from '../middlewares/validations/params.validation';
 import validateOptionalParamsString from '../middlewares/validations/params.string.notRequired.validation';
 import validateOptionalParamsNumber from '../middlewares/validations/params.integer.notRequired.validation';
+import { validateParams } from '../middlewares/validations/params.validation';
 
 const userRoutes = express.Router();
 

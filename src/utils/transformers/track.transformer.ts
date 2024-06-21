@@ -1,5 +1,5 @@
 // @module ./track-transformer
-import { Track } from '../../interfaces/track.interface';
+import { Track, userSavedTracks } from '../../interfaces/track.interface';
 
 export const handleTrack = (data: any): Track => {
   return {
@@ -18,5 +18,18 @@ export const handleTrack = (data: any): Track => {
     track_number: data.track_number,
     type: data.type,
     uri: data.uri,
+  };
+};
+
+export const handleuserSavedTracks = (data: any): userSavedTracks => {
+  const items = data.items.map((item: any) => handleTrack(item.track));
+  return {
+    href: data.href,
+    items: items,
+    limit: data.limit,
+    next: data.next,
+    offset: data.offset,
+    previous: data.previous,
+    total: data.total,
   };
 };

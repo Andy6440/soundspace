@@ -14,7 +14,6 @@ import { BadRequestError } from '../errors/badRequest.error';
  */
 const errorHandler = (err: Error, req: Request, res: Response) => {
   let error: AppError = err as AppError; // Cast to AppError for better type handling
-  console.log('pasó');
   if (axios.isAxiosError(err)) {
     const axiosError = err as AxiosError;
     console.error('Spotify API request failed:', axiosError);
@@ -26,7 +25,6 @@ const errorHandler = (err: Error, req: Request, res: Response) => {
     console.error('Unexpected error:', err.message);
     error = new AppError(err.message, 500);
   }
-  console.log('pasó');
   res.status(error.statusCode || 500).json({
     status: 'error',
     message: error.message,

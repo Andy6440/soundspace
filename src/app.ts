@@ -36,6 +36,7 @@ connectDB()
         app.use(authHandler);
         app.use('/users', userRoutes);
         app.use('/track', trackRoutes);
+
         app.use(errorHandler);
 
         // Start the server
