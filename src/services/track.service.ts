@@ -33,7 +33,6 @@ class TrackService {
   public async getById(access_token: string, id: string) {
     try {
       const url = `${config.api_spotify_url}/tracks/${id}`;
-      console.log('url', url);
       const response: Track = await httpService.get(url, access_token);
       return handleTrack(response);
     } catch (error) {

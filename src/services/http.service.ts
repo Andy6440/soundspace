@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { apiResponse } from '../interfaces/apiResponse.interface';
-import e from 'express';
 import { BadRequestError } from '../errors/badRequest.error';
 
 /**

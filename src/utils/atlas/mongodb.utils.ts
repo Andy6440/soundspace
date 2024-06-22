@@ -16,10 +16,8 @@ const connectDB = async () => {
       tlsAllowInvalidCertificates: false,
       tlsAllowInvalidHostnames: false,
     });
-    console.log('MongoDB connected successfully');
     return true;
   } catch (error) {
-    console.error('Error connecting to MongoDB', error);
     return false;
   }
 };

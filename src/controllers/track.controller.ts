@@ -30,7 +30,6 @@ export class TrackController {
     if (auth?.access_token) {
       try {
         const token = auth.access_token as string;
-        console.log(req.body.ids);
         res.send(token);
       } catch (error) {
         throw new Error('Error retrieving user data');

@@ -14,16 +14,17 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.eslint.json', // Asegúrate de tener este archivo
   },
-  plugins: [
-    '@typescript-eslint',
-    'prettier',
-  ],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    "prettier/prettier": ["error", {
-      "endOfLine": "auto"
-    }],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'no-console': 'error', // Añade esta línea para prohibir el uso de console.log
   },
 };

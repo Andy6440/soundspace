@@ -9,6 +9,7 @@ import helmet from 'helmet';
 import session from 'express-session';
 import trackRoutes from './routes/track.routes';
 import { errorMiddleware } from './middlewares/error.middleware';
+import { AppError } from './errors/app.error';
 const app: Application = express();
 const port: string | number = process.env.PORT || 8888;
 
