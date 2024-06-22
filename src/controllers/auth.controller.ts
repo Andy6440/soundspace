@@ -93,8 +93,6 @@ export class AuthController {
       } else {
         throw new Error('Error al Iniciar sesion');
       }
-
-      res.send(user);
     } catch (err) {
       next(err);
     }

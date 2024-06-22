@@ -22,4 +22,15 @@ trackRoutes.get(
   TrackController.getUsersSavedTracks,
 );
 
+trackRoutes.post(
+  '/save-track-user',
+  validateArrayString(['ids']),
+  TrackController.saveTrackUser,
+);
+
+trackRoutes.delete(
+  '/remove-track-user',
+  validateArrayString(['ids']),
+  TrackController.removeTrackUser,
+);
 export default trackRoutes;

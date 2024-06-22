@@ -1,6 +1,5 @@
 import express, { Application } from 'express';
 import authRoutes from './routes/auth.routes';
-import errorHandler from './middlewares/error.middleware';
 import cookieParser from 'cookie-parser';
 import { connectDB, ping } from './utils/atlas/mongodb.utils';
 import { swaggerDocs, swaggerSetup } from './config/swagger';
@@ -9,6 +8,7 @@ import authHandler from './middlewares/auth.middleware';
 import helmet from 'helmet';
 import session from 'express-session';
 import trackRoutes from './routes/track.routes';
+import { errorMiddleware } from './middlewares/error.middleware';
 const app: Application = express();
 const port: string | number = process.env.PORT || 8888;
 
@@ -36,8 +36,7 @@ connectDB()
         app.use(authHandler);
         app.use('/users', userRoutes);
         app.use('/track', trackRoutes);
-
-        app.use(errorHandler);
+        app.use(errorMiddleware);
 
         // Start the server
         app.listen(port, () => {

@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { apiResponse } from '../interfaces/apiResponse.interface';
+import e from 'express';
+import { BadRequestError } from '../errors/badRequest.error';
 
 /**
  * Service for making HTTP requests using Axios.
@@ -53,6 +56,51 @@ class HttpService {
     };
     const response = await this.axiosInstance.post(path, data, config);
     return response.data;
+  }
+
+  public async put(path: string, access_token: string, data?: object) {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: path,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      });
+      const result: apiResponse = {
+        message: response.statusText,
+        status: response.status,
+        data: response.data,
+      };
+
+      return result;
+    } catch (error: any) {
+      throw new BadRequestError(error.message, error.status);
+    }
+  }
+  public async delete(path: string, access_token: string, data?: object) {
+    try {
+      const response = await axios({
+        method: 'delete',
+        url: path,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      });
+      const result: apiResponse = {
+        message: response.statusText,
+        status: response.status,
+        data: response.data,
+      };
+
+      return result;
+    } catch (error: any) {
+      throw new BadRequestError(error.message, error.status);
+    }
   }
 }
 

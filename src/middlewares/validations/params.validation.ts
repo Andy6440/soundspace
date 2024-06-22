@@ -18,6 +18,7 @@ const validateParams = (params: string[]) => {
 
 const validateArrayString = (params: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
     for (const param of params) {
       if (
         !(

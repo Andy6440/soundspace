@@ -72,6 +72,17 @@ class TrackService {
       throw new Error('Error al hacer la solicitud');
     }
   }
+
+  public async saveTrackUser(access_token: string, ids: string[]) {
+    const url = `${config.api_spotify_url}/me/tracks`;
+    const data = { ids: ids };
+    return await httpService.put(url, access_token, data);
+  }
+  public async removeTrackUser(access_token: string, ids: string[]) {
+    const url = `${config.api_spotify_url}/me/tracks`;
+    const data = { ids: ids };
+    return await httpService.delete(url, access_token, data);
+  }
 }
 
 export const trackService = TrackService.getInstance();
