@@ -39,4 +39,6 @@ trackRoutes.get(
   validateArrayString(['ids']),
   TrackController.checkUsersSavedTracks,
 );
+
+trackRoutes.get('/get-audio-features', TrackController.getAudioFeatures);
 export default trackRoutes;

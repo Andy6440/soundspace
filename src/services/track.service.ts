@@ -2,6 +2,7 @@ import { config } from '../config/config';
 import { apiResponse } from '../interfaces/apiResponse.interface';
 import { Track, userSavedTracks } from '../interfaces/track.interface';
 import {
+  handleAudioFeaturesArray,
   handleTrack,
   handleuserSavedTracks,
 } from '../utils/transformers/track.transformer';
@@ -92,6 +93,12 @@ class TrackService {
       status: 200,
       data,
     } as apiResponse;
+  }
+
+  public async getAudioFeatures(access_token: string, ids: string[]) {
+    const url = `${config.api_spotify_url}/audio-features?ids=${ids.join()}`;
+    const response = await httpService.get(url, access_token);
+    return handleAudioFeaturesArray(response);
   }
 }
 

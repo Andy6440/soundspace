@@ -1,5 +1,9 @@
 // @module ./track-transformer
-import { Track, userSavedTracks } from '../../interfaces/track.interface';
+import {
+  AudioFeatures,
+  Track,
+  userSavedTracks,
+} from '../../interfaces/track.interface';
 
 export const handleTrack = (data: any): Track => {
   return {
@@ -32,4 +36,31 @@ export const handleuserSavedTracks = (data: any): userSavedTracks => {
     previous: data.previous,
     total: data.total,
   };
+};
+
+export const handleAudioFeatures = (data: any): AudioFeatures => {
+  return {
+    danceability: data.danceability,
+    energy: data.energy,
+    key: data.key,
+    loudness: data.loudness,
+    mode: data.mode,
+    speechiness: data.speechiness,
+    acousticness: data.acousticness,
+    instrumentalness: data.instrumentalness,
+    liveness: data.liveness,
+    valence: data.valence,
+    tempo: data.tempo,
+    type: data.type,
+    id: data.id,
+    uri: data.uri,
+    track_href: data.track_href,
+    analysis_url: data.analysis_url,
+    duration_ms: data.duration_ms,
+    time_signature: data.time_signature,
+  };
+};
+
+export const handleAudioFeaturesArray = (data: any): AudioFeatures[] => {
+  return data.audio_features.map((item: any) => handleAudioFeatures(item));
 };
