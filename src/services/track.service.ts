@@ -1,4 +1,5 @@
 import { config } from '../config/config';
+import { apiResponse } from '../interfaces/apiResponse.interface';
 import { Track, userSavedTracks } from '../interfaces/track.interface';
 import {
   handleTrack,
@@ -81,6 +82,16 @@ class TrackService {
     const url = `${config.api_spotify_url}/me/tracks`;
     const data = { ids: ids };
     return await httpService.delete(url, access_token, data);
+  }
+
+  public async checkUsersSavedTracks(access_token: string, ids: string[]) {
+    const url = `${config.api_spotify_url}/me/tracks/contains?ids=${ids.join()}`;
+    const data = await httpService.get(url, access_token);
+    return {
+      message: 'Tracks encontrados',
+      status: 200,
+      data,
+    } as apiResponse;
   }
 }
 

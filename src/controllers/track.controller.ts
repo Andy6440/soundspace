@@ -105,4 +105,25 @@ export class TrackController {
       next(error);
     }
   }
+
+  static async checkUsersSavedTracks(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const auth = (req.session as ISession).token;
+      if (auth?.access_token) {
+        const token = auth.access_token as string;
+        const ids = req.body.ids as string[];
+        const response = await trackService.checkUsersSavedTracks(token, ids);
+
+        res.send(response);
+      } else {
+        throw new Error('Access token not found');
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }

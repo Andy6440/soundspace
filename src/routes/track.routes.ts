@@ -33,4 +33,10 @@ trackRoutes.delete(
   validateArrayString(['ids']),
   TrackController.removeTrackUser,
 );
+
+trackRoutes.get(
+  '/check-users-saved-tracks',
+  validateArrayString(['ids']),
+  TrackController.checkUsersSavedTracks,
+);
 export default trackRoutes;
