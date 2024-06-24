@@ -100,6 +100,23 @@ class TrackService {
     const response = await httpService.get(url, access_token);
     return handleAudioFeaturesArray(response);
   }
+
+  public async getAudioAnalysis(access_token: string, id: string) {
+    const url = `${config.api_spotify_url}/audio-analysis/${id}`;
+    const response = await httpService.get(url, access_token);
+    return response;
+  }
+
+  public async getRecommendations(
+    access_token: string,
+    seed_artists: string,
+    seed_genres: string,
+    seed_tracks: string,
+  ) {
+    const url = `${config.api_spotify_url}/recommendations?seed_artists=${seed_artists}&seed_genres=${seed_genres}&seed_tracks=${seed_tracks}`;
+    const response = await httpService.get(url, access_token);
+    return response;
+  }
 }
 
 export const trackService = TrackService.getInstance();

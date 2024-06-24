@@ -146,4 +146,50 @@ export class TrackController {
       next(error);
     }
   }
+  static async getAudioAnalysis(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const auth = (req.session as ISession).token;
+      if (auth?.access_token) {
+        const token = auth.access_token as string;
+        const id = req.query.id as string;
+        const response = await trackService.getAudioAnalysis(token, id);
+        res.send(response);
+      } else {
+        throw new Error('Access token not found');
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getRecommendations(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const auth = (req.session as ISession).token;
+      if (auth?.access_token) {
+        const token = auth.access_token as string;
+        const seed_artists = req.query.seed_artists as string;
+        const seed_genres = req.query.seed_genres as string;
+        const seed_tracks = req.query.seed_tracks as string;
+        const response = await trackService.getRecommendations(
+          token,
+          seed_artists,
+          seed_genres,
+          seed_tracks,
+        );
+        res.send(response);
+      } else {
+        throw new Error('Access token not found');
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }

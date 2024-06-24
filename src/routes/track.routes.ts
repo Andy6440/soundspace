@@ -41,4 +41,8 @@ trackRoutes.get(
 );
 
 trackRoutes.get('/get-audio-features', TrackController.getAudioFeatures);
+
+trackRoutes.get('/get-audio-analysis', TrackController.getAudioAnalysis);
+
+trackRoutes.get('/get-recommendations', TrackController.getRecommendations);
 export default trackRoutes;
